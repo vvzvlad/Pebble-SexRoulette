@@ -1,0 +1,184 @@
+{
+  "uuid": "0f7b8336-d72d-4806-9191-566ffd8f3a8c",
+  "shortName": "SexRoulette",
+  "longName": "SexRoulette",
+  "companyName": "vvzvlad",
+  "versionCode": 1,
+  "versionLabel": "1.0.0",
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+ "media": [
+    {
+        "menuIcon": true,
+        "type": "png",
+        "name": "DEFAULT_MENU_ICON",
+        "file": "img/logo.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_1",
+        "file": "img/1.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_2",
+        "file": "img/2.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_3",
+        "file": "img/3.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_4",
+        "file": "img/4.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_5",
+        "file": "img/5.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_6",
+        "file": "img/6.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_7",
+        "file": "img/7.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_8",
+        "file": "img/8.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_9",
+        "file": "img/9.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_10",
+        "file": "img/10.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_11",
+        "file": "img/11.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_12",
+        "file": "img/12.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_13",
+        "file": "img/13.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_14",
+        "file": "img/14.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_15",
+        "file": "img/15.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_16",
+        "file": "img/16.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_17",
+        "file": "img/17.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_18",
+        "file": "img/18.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_19",
+        "file": "img/19.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_20",
+        "file": "img/20.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_21",
+        "file": "img/21.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_22",
+        "file": "img/22.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_23",
+        "file": "img/23.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_24",
+        "file": "img/24.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_25",
+        "file": "img/25.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_26",
+        "file": "img/26.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_27",
+        "file": "img/27.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_28",
+        "file": "img/28.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_29",
+        "file": "img/29.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_30",
+        "file": "img/30.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_31",
+        "file": "img/31.png"
+    },
+    {
+        "type": "png",
+        "name": "POSE_32",
+        "file": "img/32.png"
+    }
+    ]
+  }
+}
