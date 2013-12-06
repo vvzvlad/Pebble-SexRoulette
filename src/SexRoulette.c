@@ -7,7 +7,13 @@ static BitmapLayer *image_layer; /* создаем  указатель на гр
 static GBitmap *image; /* создаем  указатель на изображение в памяти */
 bool first_time=true; /* создаем флаг первого запуска */
 
-static const char* messages[] = {"В ванной","На кухне","На полу","На кровати","В туалете","В коридоре","В гостях","На балконе","В шкафу","В ванной","В лифте","На улице","В машине","В воде","В общественном туалете","При свечах","В спальне","В гостиной","В примерочной кабинке","В кинотеатре","Перед камерой","На пляже","В чужом доме",}; /* Создаем массив ответов */
+#define RUS 1
+
+#if (RUS == 0)
+    static const char* messages[] = {"In the bathroom","In the kitchen","On the floor","On the bed","In the toilet","In the corridor","In the friends house","On the balcony","In the closet","In the elevator","In the weather","In the car","In water","In a public toilet","When burning candles","In the bedroom","In the living room","In the fitting room","In the cinema","During video recording","On the beach",}; /* Создаем массив ответов */
+#elif (RUS == 1)
+    static const char* messages[] = {"В ванной","На кухне","На полу","На кровати","В туалете","В коридоре","В гостях","На балконе","В шкафу","В лифте","На улице","В машине","В воде","В общественном туалете","При свечах","В спальне","В гостиной","В примерочной кабинке","В кинотеатре","Перед камерой","На пляже",}; /* Создаем массив ответов */
+#endif
 
 static const uint32_t images[] = {RESOURCE_ID_POSE_1,RESOURCE_ID_POSE_2,RESOURCE_ID_POSE_3,RESOURCE_ID_POSE_4,RESOURCE_ID_POSE_5,RESOURCE_ID_POSE_6,RESOURCE_ID_POSE_7,RESOURCE_ID_POSE_8,RESOURCE_ID_POSE_9,RESOURCE_ID_POSE_10,RESOURCE_ID_POSE_11,RESOURCE_ID_POSE_12,RESOURCE_ID_POSE_13,RESOURCE_ID_POSE_14,RESOURCE_ID_POSE_15,RESOURCE_ID_POSE_16,RESOURCE_ID_POSE_17,RESOURCE_ID_POSE_18,RESOURCE_ID_POSE_19,RESOURCE_ID_POSE_20,RESOURCE_ID_POSE_21,RESOURCE_ID_POSE_22,RESOURCE_ID_POSE_23,RESOURCE_ID_POSE_24,RESOURCE_ID_POSE_25,RESOURCE_ID_POSE_26,RESOURCE_ID_POSE_27,RESOURCE_ID_POSE_28,RESOURCE_ID_POSE_29,RESOURCE_ID_POSE_30,RESOURCE_ID_POSE_31,RESOURCE_ID_POSE_32,}; /* Создаем массив идентификаторов ресурсов */
  
@@ -21,7 +27,7 @@ void timer_call() /* эта функция вызывается при сраб�
     first_time = false; /* сбрасываем флаг первого запуска */
     image = gbitmap_create_with_resource(images[rand() % 31]); /* загружаем в память случайную картинку из подключенных ресурсов */
     bitmap_layer_set_bitmap(image_layer, image); /* выводим загруженную картинку в слой */
-    text_layer_set_text(text_layer, messages[rand() % 22]); /* выводим случайное сообщение */
+    text_layer_set_text(text_layer, messages[rand() % 20]); /* выводим случайное сообщение */
     if (timer_delay < 300*100 ) /* если задержка еще не достигла 300мс... */
     {
         timer_delay=timer_delay/0.7; /* ...увеличиваем задержку... */
@@ -69,7 +75,14 @@ int main(void)
     srand(time(NULL)); /* инициализируем генератор случайных чисел текущем временем */
     window_set_click_config_provider(window, WindowsClickConfigProvider); /* определяем функцию, в которой будут находиться подписки на кнопки */
     config_text_layer(0, 20, 144, 168, FONT_KEY_GOTHIC_24); /* настраиваем создание текстового слоя с приветственным сообщением */
+
+#if (RUS == 0)
+    text_layer_set_text(text_layer, "Sex Roulette \n Click on any button to select a random position and place -->");  /* показываем сообщение при запуске */
+#elif (RUS == 1)
     text_layer_set_text(text_layer, "Sex Roulette \n Нажми на любую кнопку, чтобы выбрать позу и место -->");  /* показываем сообщение при запуске */
+#endif
+
+
     image_layer = bitmap_layer_create(GRect(0 , 0, 144, 144)); /* создаем графический массив, указываем размер и координаты */
     layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(image_layer)); /* подключаем графический слой к основному в качестве дочернего */
     bitmap_layer_set_compositing_mode(image_layer, GCompOpAssignInverted); /* настраиваем параметр наложения */
