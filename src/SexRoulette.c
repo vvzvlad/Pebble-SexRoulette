@@ -7,7 +7,7 @@ static BitmapLayer *image_layer; /* создаем  указатель на гр
 static GBitmap *image; /* создаем  указатель на изображение в памяти */
 bool first_time=true; /* создаем флаг первого запуска */
 
-#define RUS 1
+#define RUS 0
 
 #if (RUS == 0)
     static const char* messages[] = {"In the bathroom","In the kitchen","On the floor","On the bed","In the toilet","In the corridor","In the friends house","On the balcony","In the closet","In the elevator","In the weather","In the car","In water","In a public toilet","When burning candles","In the bedroom","In the living room","In the fitting room","In the cinema","During video recording","On the beach",}; /* Создаем массив ответов */
@@ -26,6 +26,11 @@ void timer_call() /* эта функция вызывается при сраб�
         gbitmap_destroy(image); /* ...и очищаем память от предыдущей картинки */
       }
     first_time = false; /* сбрасываем флаг первого запуска */
+
+    image_layer = bitmap_layer_create(GRect(0 , 0, 144, 144)); /* создаем графический массив, указываем размер и координаты */
+    layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(image_layer)); /* подключаем графический слой к основному в качестве дочернего */
+    bitmap_layer_set_compositing_mode(image_layer, GCompOpAssignInverted); /* настраиваем параметр наложения */
+
     image = gbitmap_create_with_resource(images[rand() % 31]); /* загружаем в память случайную картинку из подключенных ресурсов */
     bitmap_layer_set_bitmap(image_layer, image); /* выводим загруженную картинку в слой */
     text_layer_set_text(text_layer, messages[rand() % 20]); /* выводим случайное сообщение */
@@ -37,6 +42,7 @@ void timer_call() /* эта функция вызывается при сраб�
     else /* если задержка уже больше 300мс... */
     {
         timer_delay=1; /* сбрасываем таймер на начало и выходим - сообщение и картинку мы же уже показали */
+        light_enable_interaction(); /* включаем подсветку */
     }
 }
 
@@ -75,18 +81,14 @@ int main(void)
     window_stack_push(window, true);  /* открываем окно */
     srand(time(NULL)); /* инициализируем генератор случайных чисел текущем временем */
     window_set_click_config_provider(window, WindowsClickConfigProvider); /* определяем функцию, в которой будут находиться подписки на кнопки */
-    config_text_layer(0, 20, 144, 168, FONT_KEY_GOTHIC_24); /* настраиваем создание текстового слоя с приветственным сообщением */
+    config_text_layer(0, 10, 144, 168, FONT_KEY_GOTHIC_24); /* настраиваем создание текстового слоя с приветственным сообщением */
 
 #if (RUS == 0)
-    text_layer_set_text(text_layer, "Sex Roulette \n Click on any button to select a random position and place -->");  /* показываем сообщение при запуске */
+    text_layer_set_text(text_layer, "Sex Roulette \n \n Click on any button to select a random pose and place \n ---------------->");  /* показываем сообщение при запуске */
 #elif (RUS == 1)
     text_layer_set_text(text_layer, "Sex Roulette \n Нажми на любую кнопку, чтобы выбрать позу и место -->");  /* показываем сообщение при запуске */
 #endif
 
-
-    image_layer = bitmap_layer_create(GRect(0 , 0, 144, 144)); /* создаем графический массив, указываем размер и координаты */
-    layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(image_layer)); /* подключаем графический слой к основному в качестве дочернего */
-    bitmap_layer_set_compositing_mode(image_layer, GCompOpAssignInverted); /* настраиваем параметр наложения */
     app_event_loop();  /* ждем событий */
     text_layer_destroy(text_layer); /* уничтожаем текстовый слой, освобождаем ресурсы */
     window_destroy(window);  /* уничтожаем главное окно, освобождаем ресурсы */
