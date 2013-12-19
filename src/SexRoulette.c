@@ -7,15 +7,19 @@ static BitmapLayer *image_layer; /* создаем  указатель на гр
 static GBitmap *image; /* создаем  указатель на изображение в памяти */
 bool first_time=true; /* создаем флаг первого запуска */
 
-#define LANG 3 //ENG=1,RUS=2,GE=3
+#define ENG 1
+#define RUS 2
+#define GE 3
 
-#if (LANG == 1)
+#define LANG ENG
+
+#if (LANG == ENG)
     static const char* messages[] = {"In the bathroom","In the kitchen","On the floor","On the bed","In the toilet","In the corridor","In the friends house","On the balcony","In the closet","In the elevator","In the weather","In the car","In water","In a public toilet","When burning candles","In the bedroom","In the living room","In the fitting room","In the cinema","During video recording","On the beach",}; /* Создаем массив ответов */
 #endif
-#if (LANG == 2)
+#if (LANG == RUS)
     static const char* messages[] = {"В ванной","На кухне","На полу","На кровати","В туалете","В коридоре","В гостях","На балконе","В шкафу","В лифте","На улице","В машине","В воде","В общественном туалете","При свечах","В спальне","В гостиной","В примерочной кабинке","В кинотеатре","Перед камерой","На пляже",}; /* Создаем массив ответов */
 #endif
-#if (LANG == 3)
+#if (LANG == GE)
     static const char* messages[] = {"Im Badezimmer","In der Küche","Auf dem Boden","Im Bett","Auf der Toilette","Im Korridor","Im Haus des Freundes","Auf dem Balkon","Auf dem Klo","Im Fahrstuhl","Auf dem Tisch","Im Auto","Im Wasser","Auf einer öffentlichen Toilette","Bei Kerzenschein","Im Schlafzimmer","Im Wohnzimmer","In der Umkleidekabine","Im Kino","Bei laufender Kamera","Am Strand",}; /* German Locations */
 #endif
 
@@ -87,13 +91,13 @@ int main(void)
     window_set_click_config_provider(window, WindowsClickConfigProvider); /* определяем функцию, в которой будут находиться подписки на кнопки */
     config_text_layer(0, 10, 144, 168, FONT_KEY_GOTHIC_24); /* настраиваем создание текстового слоя с приветственным сообщением */
 
-#if (LANG == 1)
+#if (LANG == ENG)
     text_layer_set_text(text_layer, "Sex Roulette \n \n Click on any button to select a random pose and place \n ---------------->");  /* показываем сообщение при запуске */
 #endif
-#if (LANG == 2)
+#if (LANG == RUS)
     text_layer_set_text(text_layer, "Sex Roulette \n Нажми на любую кнопку, чтобы выбрать позу и место -->");  /* показываем сообщение при запуске */
 #endif
-#if (LANG == 3)
+#if (LANG == GE)
     text_layer_set_text(text_layer, "Sex Roulette \n Drücke einen beliebigen Knopf für Ort und Stellung -->");  /* German Start-Screen */
 #endif
 
