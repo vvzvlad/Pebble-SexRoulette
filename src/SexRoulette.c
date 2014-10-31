@@ -11,7 +11,7 @@ bool first_time=true; /* создаем флаг первого запуска *
 #define RUS 2
 #define GE 3
 
-#define LANG ENG
+#define LANG RUS
 
 #if (LANG == ENG)
     static const char* messages[] = {"In the bathroom","In the kitchen","On the floor","On the bed","In the toilet","In the corridor","In the friends house","On the balcony","In the closet","In the elevator","In the weather","In the car","In water","In a public toilet","When burning candles","In the bedroom","In the living room","In the fitting room","In the cinema","During video recording","On the beach",}; /* Создаем массив ответов */
