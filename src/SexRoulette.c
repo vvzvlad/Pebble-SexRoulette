@@ -6,22 +6,14 @@ TextLayer *text_layer;  /* создаем  указатель на тексто�
 static BitmapLayer *image_layer; /* создаем  указатель на графический слой */
 static GBitmap *image; /* создаем  указатель на изображение в памяти */
 bool first_time=true; /* создаем флаг первого запуска */
+int lang=1; /* создаем переменную языка: eng-1, rus-2, ge-3 */
 
-#define ENG 1
-#define RUS 2
-#define GE 3
-
-#define LANG RUS
-
-#if (LANG == ENG)
-    static const char* messages[] = {"In the bathroom","In the kitchen","On the floor","On the bed","In the toilet","In the corridor","In the friends house","On the balcony","In the closet","In the elevator","In the weather","In the car","In water","In a public toilet","When burning candles","In the bedroom","In the living room","In the fitting room","In the cinema","During video recording","On the beach",}; /* Создаем массив ответов */
-#endif
-#if (LANG == RUS)
-    static const char* messages[] = {"В ванной","На кухне","На полу","На кровати","В туалете","В коридоре","В гостях","На балконе","В шкафу","В лифте","На улице","В машине","В воде","В общественном туалете","При свечах","В спальне","В гостиной","В примерочной кабинке","В кинотеатре","Перед камерой","На пляже",}; /* Создаем массив ответов */
-#endif
-#if (LANG == GE)
-    static const char* messages[] = {"Im Badezimmer","In der Küche","Auf dem Boden","Im Bett","Auf der Toilette","Im Korridor","Im Haus des Freundes","Auf dem Balkon","Auf dem Klo","Im Fahrstuhl","Auf dem Tisch","Im Auto","Im Wasser","Auf einer öffentlichen Toilette","Bei Kerzenschein","Im Schlafzimmer","Im Wohnzimmer","In der Umkleidekabine","Im Kino","Bei laufender Kamera","Am Strand",}; /* German Locations */
-#endif
+static const char* messages_en[] = {"In the bathroom","In the kitchen","On the floor","On the bed","In the toilet","In the corridor","In the friends house","On the balcony","In the closet","In the elevator","In the weather","In the car","In water","In a public toilet","When burning candles","In the bedroom","In the living room","In the fitting room","In the cinema","During video recording","On the beach",}; /* Создаем массив ответов */
+static const char* messages_ru[] = {"В ванной","На кухне","На полу","На кровати","В туалете","В коридоре","В гостях","На балконе","В шкафу","В лифте","На улице","В машине","В воде","В общественном туалете","При свечах","В спальне","В гостиной","В примерочной кабинке","В кинотеатре","Перед камерой","На пляже",}; /* Создаем массив ответов */
+static const char* messages_ge[] = {"Im Badezimmer","In der Küche","Auf dem Boden","Im Bett","Auf der Toilette","Im Korridor","Im Haus des Freundes","Auf dem Balkon","Auf dem Klo","Im Fahrstuhl","Auf dem Tisch","Im Auto","Im Wasser","Auf einer öffentlichen Toilette","Bei Kerzenschein","Im Schlafzimmer","Im Wohnzimmer","In der Umkleidekabine","Im Kino","Bei laufender Kamera","Am Strand",}; /* German Locations */
+static const char* message_hello_ru= "Sex Roulette \n Нажми на любую кнопку, чтобы выбрать позу и место -->";
+static const char* message_hello_en= "Sex Roulette \n \n Click on any button to select a random pose and place \n ---------------->";
+static const char* message_hello_ge= "Sex Roulette \n Drücke einen beliebigen Knopf für Ort und Stellung -->";
 
 static const uint32_t images[] = {RESOURCE_ID_POSE_1,RESOURCE_ID_POSE_2,RESOURCE_ID_POSE_3,RESOURCE_ID_POSE_4,RESOURCE_ID_POSE_5,RESOURCE_ID_POSE_6,RESOURCE_ID_POSE_7,RESOURCE_ID_POSE_8,RESOURCE_ID_POSE_9,RESOURCE_ID_POSE_10,RESOURCE_ID_POSE_11,RESOURCE_ID_POSE_12,RESOURCE_ID_POSE_13,RESOURCE_ID_POSE_14,RESOURCE_ID_POSE_15,RESOURCE_ID_POSE_16,RESOURCE_ID_POSE_17,RESOURCE_ID_POSE_18,RESOURCE_ID_POSE_19,RESOURCE_ID_POSE_20,RESOURCE_ID_POSE_21,RESOURCE_ID_POSE_22,RESOURCE_ID_POSE_23,RESOURCE_ID_POSE_24,RESOURCE_ID_POSE_25,RESOURCE_ID_POSE_26,RESOURCE_ID_POSE_27,RESOURCE_ID_POSE_28,RESOURCE_ID_POSE_29,RESOURCE_ID_POSE_30,RESOURCE_ID_POSE_31,RESOURCE_ID_POSE_32,}; /* Создаем массив идентификаторов ресурсов */
  
@@ -41,7 +33,17 @@ void timer_call() /* эта функция вызывается при сраб�
 
     image = gbitmap_create_with_resource(images[rand() % 31]); /* загружаем в память случайную картинку из подключенных ресурсов */
     bitmap_layer_set_bitmap(image_layer, image); /* выводим загруженную картинку в слой */
-    text_layer_set_text(text_layer, messages[rand() % 20]); /* выводим случайное сообщение */
+	
+	switch (lang) 
+	{
+		case 1:  text_layer_set_text(text_layer, messages_en[rand() % 20]); /* выводим случайное сообщение */
+		break;
+		case 2:  text_layer_set_text(text_layer, messages_ru[rand() % 20]); /* выводим случайное сообщение */
+		break;
+		case 3:  text_layer_set_text(text_layer, messages_ge[rand() % 20]); /* выводим случайное сообщение */
+		break;
+	}
+    
     if (timer_delay < 300*100 ) /* если задержка еще не достигла 300мс... */
     {
         timer_delay=timer_delay/0.7; /* ...увеличиваем задержку... */
@@ -74,15 +76,35 @@ void click(ClickRecognizerRef recognizer, void *context)  /* функция, с�
     timer_call(); /* взводим таймер для быстрой смены сообщений */
 }
 
+void lang_change(ClickRecognizerRef recognizer, void *context)  /* функция изменения языка */
+{
+	lang++;
+	if (lang >= 4)
+	{
+		lang = 1;
+	}
+	click(NULL, NULL);
+}
+
 void WindowsClickConfigProvider(void *context)  /* функция, внутри которой должны находиться подписки на кнопки */
 {
     window_single_click_subscribe(BUTTON_ID_UP, click); /* при нажатии на верхнюю кнопку запустить click */
     window_single_click_subscribe(BUTTON_ID_SELECT, click); 
-    window_single_click_subscribe(BUTTON_ID_DOWN, click); 
+    window_single_click_subscribe(BUTTON_ID_DOWN, click);
+	window_long_click_subscribe(BUTTON_ID_SELECT, 1000, lang_change, NULL);
 }
 
 int main(void)
 {
+	if (persist_exists(1))
+	{
+	lang = persist_read_int(1);
+	}
+	else
+	{
+	persist_write_int(1, 1);
+	lang = 4;
+	}
     window = window_create();  /* Инициализируем окно */
     window_set_background_color(window, GColorBlack); /* устанавливаем фоновый цвет */
     window_set_fullscreen(window, true); /* включаем полный экран */
@@ -91,19 +113,20 @@ int main(void)
     window_set_click_config_provider(window, WindowsClickConfigProvider); /* определяем функцию, в которой будут находиться подписки на кнопки */
     config_text_layer(0, 10, 144, 168, FONT_KEY_GOTHIC_24); /* настраиваем создание текстового слоя с приветственным сообщением */
 
-#if (LANG == ENG)
-    text_layer_set_text(text_layer, "Sex Roulette \n \n Click on any button to select a random pose and place \n ---------------->");  /* показываем сообщение при запуске */
-#endif
-#if (LANG == RUS)
-    text_layer_set_text(text_layer, "Sex Roulette \n Нажми на любую кнопку, чтобы выбрать позу и место -->");  /* показываем сообщение при запуске */
-#endif
-#if (LANG == GE)
-    text_layer_set_text(text_layer, "Sex Roulette \n Drücke einen beliebigen Knopf für Ort und Stellung -->");  /* German Start-Screen */
-#endif
-
-
+	switch (lang) 
+	{
+		case 1:  text_layer_set_text(text_layer, message_hello_en);  /* показываем сообщение при запуске */
+		break;
+		case 2:  text_layer_set_text(text_layer, message_hello_ru);  /* показываем сообщение при запуске */
+		break;
+		case 3:  text_layer_set_text(text_layer, message_hello_ge);  /* показываем сообщение при запуске */
+		break;
+		case 4:  text_layer_set_text(text_layer, "Sex Roulette \n Long press Select to switch lang: \n EN, RUS, GE \n Or click any button");   /* показываем сообщение при запуске */
+		break;
+	}
 
     app_event_loop();  /* ждем событий */
+	persist_write_int(1, lang);
     text_layer_destroy(text_layer); /* уничтожаем текстовый слой, освобождаем ресурсы */
     window_destroy(window);  /* уничтожаем главное окно, освобождаем ресурсы */
     bitmap_layer_destroy(image_layer); /* уничтожаем графический слой, освобождаем ресурсы */
