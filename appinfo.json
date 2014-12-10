@@ -1,7 +1,5 @@
 {
-    "appKeys": {
-        "dummy": 0
-    },
+    "appKeys": {},
     "capabilities": [
         ""
     ],
@@ -181,7 +179,7 @@
     "shortName": "SexRoulette",
     "uuid": "0f7b8336-d72d-4806-9191-566ffd8f3a8c",
     "versionCode": 1,
-    "versionLabel": "1.1",
+    "versionLabel": "1.2",
     "watchapp": {
         "watchface": false
     }

@@ -121,7 +121,8 @@ int main(void)
 		break;
 		case 3:  text_layer_set_text(text_layer, message_hello_ge);  /* показываем сообщение при запуске */
 		break;
-		case 4:  text_layer_set_text(text_layer, "Sex Roulette \n Long press Select to switch lang: \n EN, RUS, GE \n Or click any button");   /* показываем сообщение при запуске */
+		case 4:  text_layer_set_text(text_layer, "Sex Roulette \nLong press Select\nto switch lang: \n EN, RUS, GE \n Or click any button");   /* показываем сообщение при запуске */
+		lang = 1;
 		break;
 	}
 
